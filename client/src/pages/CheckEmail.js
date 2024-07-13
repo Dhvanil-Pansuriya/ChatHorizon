@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CheckEmail = () => {
   return (
@@ -43,9 +44,9 @@ const CheckEmail = () => {
 
               <tr className="my-3">
                 <td colSpan="2" className="text-center">
-                  <button
+                <button
                     type="submit"
-                    className="border border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white"
+                    className="border w-full bg-secondary hover:bg-secondary2  border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white   "
                   >
                     Submit
                   </button>
@@ -54,6 +55,11 @@ const CheckEmail = () => {
             </tbody>
           </table>
         </form>
+        <p>
+          Don't have Account ? <Link to={"/register"} className="hover:text-secondary2 font-semibold">
+             Sign up
+          </Link>
+        </p>
       </div>
     </div>
   );

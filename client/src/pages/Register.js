@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
+import uploadFile from "../helpers/uploadFiles";
+import axios from "axios";
+// import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -10,6 +15,7 @@ const Register = () => {
   });
 
   const [uploadPhoto, setUploadPhoto] = useState("");
+  const navigate = useNavigate();
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -21,9 +27,19 @@ const Register = () => {
     });
   };
 
-  const handleUploadPhoto = (e) => {
+  const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
+
+    const uploadPhoto = await uploadFile(file);
+
     setUploadPhoto(file);
+
+    setData((perv) => {
+      return {
+        ...perv,
+        profile_pic: uploadPhoto?.url,
+      };
+    });
   };
 
   const handleRemoveUploadPhoto = (e) => {
@@ -32,9 +48,53 @@ const Register = () => {
     setUploadPhoto(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    const URL = `${process.env.REACT_APP_BACKEND_URL}api/register`;
+
+    console.log(URL);
+
+    try {
+      const response = await axios.post(URL, data);
+      console.log("Response : ", response);
+      toast.success(response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "",
+      });
+
+      if (response?.data?.success) {
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          profile_pic: "",
+        });
+
+        navigate("/email");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "",
+      });
+      console.log("Error : ", error);
+    }
+
+    console.log(data);
   };
 
   return (
@@ -47,8 +107,11 @@ const Register = () => {
           <span className="text-secondary font-bold">ChatHorizon</span>
         </p>
         <p className="text-xl font-extralight">Register</p>
-        <form className="flex justify-center flex-col w-full" onSubmit={handleSubmit}>
-          <table className="my-3 border-collapse w-full" >
+        <form
+          className="flex justify-center flex-col w-full"
+          onSubmit={handleSubmit}
+        >
+          <table className="my-3 border-collapse w-full">
             <tbody>
               <tr className="my-3">
                 <td className="w-1/3">
@@ -109,7 +172,10 @@ const Register = () => {
                         {uploadPhoto?.name ? uploadPhoto?.name : "Upload hear"}
                       </p>
                       {uploadPhoto?.name && (
-                        <button onClick={handleRemoveUploadPhoto} className="px-2 hover:text-secondary">
+                        <button
+                          onClick={handleRemoveUploadPhoto}
+                          className="px-2 hover:text-secondary"
+                        >
                           <IoCloseCircle />
                         </button>
                       )}
@@ -128,7 +194,7 @@ const Register = () => {
                 <td colSpan="2" className="text-center">
                   <button
                     type="submit"
-                    className="border border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white"
+                    className="border w-full bg-secondary hover:bg-secondary2  border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white   "
                   >
                     Submit
                   </button>
@@ -137,6 +203,12 @@ const Register = () => {
             </tbody>
           </table>
         </form>
+        <p>
+          Already have Account ?{" "}
+          <Link to={"/email"} className="hover:text-secondary2 font-semibold">
+            Sign in
+          </Link>
+        </p>
       </div>
     </div>
   );
