@@ -1,9 +1,71 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const CheckEmail = () => {
+  const [data, setData] = useState({
+    email: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleOnchange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const URL = `${process.env.REACT_APP_BACKEND_URL}api/checkEmail`;
+
+    try {
+      const response = await axios.post(URL, data);
+      toast.success(response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "",
+      });
+
+      if (response?.data?.success) {
+        setData({
+          email: "",
+        });
+
+        navigate("/password", {
+          state: response?.data,
+        });
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "",
+      });
+      console.log("Error : ", error);
+    }
+
+  };
+
   return (
-    <div className="mt-5 flex justify-center items-center">
+    <div className="mt-5 flex justify-center  items-center">
       <div className="text-white border border-secondary max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col m-7">
         <p className="text-2xl py-4">
           <span className="text-xl">
@@ -11,13 +73,16 @@ const CheckEmail = () => {
           </span>{" "}
           <span className="text-secondary font-bold">ChatHorizon</span>
         </p>
-        <p className="text-xl font-extralight">Login</p>
-        <form className="flex justify-center flex-col w-full">
+        <p className="text-xl font-extralight">Verify Email</p>
+        <form
+          className="flex justify-center flex-col w-full"
+          onSubmit={handleSubmit}
+        >
           <table className="my-3 border-collapse w-full">
             <tbody>
               <tr className="my-3">
                 <td className="w-1/3">
-                  <label htmlFor="email">Email:</label>
+                  <label htmlFor="email">Email :</label>
                 </td>
                 <td className="w-2/3">
                   <input
@@ -25,30 +90,20 @@ const CheckEmail = () => {
                     id="email"
                     type="email"
                     className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
-                  />
-                </td>
-              </tr>
-              <tr className="my-3">
-                <td className="w-1/3">
-                  <label htmlFor="password">Password:</label>
-                </td>
-                <td className="w-2/3">
-                  <input
-                    name="password"
-                    id="password"
-                    type="password"
-                    className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
+                    value={data.email}
+                    onChange={handleOnchange}
+                    required
                   />
                 </td>
               </tr>
 
               <tr className="my-3">
                 <td colSpan="2" className="text-center">
-                <button
+                  <button
                     type="submit"
                     className="border w-full bg-secondary hover:bg-secondary2  border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white   "
                   >
-                    Submit
+                    Let's Go
                   </button>
                 </td>
               </tr>
@@ -56,8 +111,12 @@ const CheckEmail = () => {
           </table>
         </form>
         <p>
-          Don't have Account ? <Link to={"/register"} className="hover:text-secondary2 font-semibold">
-             Sign up
+          Already have Account ?{" "}
+          <Link
+            to={"/register"}
+            className="hover:text-secondary2 font-semibold"
+          >
+            Sign in
           </Link>
         </p>
       </div>

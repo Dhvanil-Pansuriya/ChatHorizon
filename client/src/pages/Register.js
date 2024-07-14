@@ -3,8 +3,8 @@ import { IoCloseCircle } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import uploadFile from "../helpers/uploadFiles";
 import axios from "axios";
-// import toast from "react-hot-toast";
 import { toast } from "react-toastify";
+import imageCompression from "browser-image-compression";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -14,38 +14,81 @@ const Register = () => {
     profile_pic: "",
   });
 
-  const [uploadPhoto, setUploadPhoto] = useState("");
+  const [uploadPhoto, setUploadPhoto] = useState(null);
+  const [fileSize, setFileSize] = useState(null);
   const navigate = useNavigate();
 
-  const handleOnchange = (e) => {
+  const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleUploadPhoto = async (e) => {
-    const file = e.target.files[0];
-
-    const uploadPhoto = await uploadFile(file);
-
-    setUploadPhoto(file);
-
-    setData((perv) => {
-      return {
-        ...perv,
-        profile_pic: uploadPhoto?.url,
+    try {
+      const file = e.target.files[0];
+      const options = {
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
       };
-    });
+
+      const compressedFile = await imageCompression(file, options);
+      const fileSizeInKB = (compressedFile.size / 1024).toFixed(2);
+      const fileSizeInMB = (fileSizeInKB / 1000).toFixed(2);
+
+      console.log(fileSizeInKB, fileSizeInMB);
+
+      if (fileSizeInKB > 1000) {
+        toast.error(
+          `File size exceeds 1 MB, your file size : ${fileSizeInMB} MB`,
+          {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "",
+          }
+        );
+        return;
+      }
+
+      const uploadPhoto = await uploadFile(compressedFile);
+      setUploadPhoto(compressedFile);
+      setFileSize(fileSizeInKB);
+      setData((prev) => ({
+        ...prev,
+        profile_pic: uploadPhoto?.url,
+      }));
+    } catch (error) {
+      toast.error(error?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 20000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "",
+      });
+      console.log(error?.response?.data?.message);
+    }
   };
 
   const handleRemoveUploadPhoto = (e) => {
     e.stopPropagation();
     e.preventDefault();
     setUploadPhoto(null);
+    setFileSize(null);
+    setData((prev) => ({
+      ...prev,
+      profile_pic: "",
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -53,8 +96,6 @@ const Register = () => {
     e.stopPropagation();
 
     const URL = `${process.env.REACT_APP_BACKEND_URL}api/register`;
-
-    console.log(URL);
 
     try {
       const response = await axios.post(URL, data);
@@ -77,8 +118,7 @@ const Register = () => {
           password: "",
           profile_pic: "",
         });
-
-        navigate("/email");
+        navigate("/checkEmail");
       }
     } catch (error) {
       toast.error(error?.response?.data?.message, {
@@ -98,7 +138,7 @@ const Register = () => {
   };
 
   return (
-    <div className="mt-5 flex justify-center  items-center">
+    <div className="mt-5 flex justify-center items-center">
       <div className="text-white border border-secondary max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col m-7">
         <p className="text-2xl py-4">
           <span className="text-xl">
@@ -124,7 +164,7 @@ const Register = () => {
                     type="text"
                     className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
                     value={data.name}
-                    onChange={handleOnchange}
+                    onChange={handleOnChange}
                     required
                   />
                 </td>
@@ -140,7 +180,7 @@ const Register = () => {
                     type="email"
                     className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
                     value={data.email}
-                    onChange={handleOnchange}
+                    onChange={handleOnChange}
                     required
                   />
                 </td>
@@ -156,7 +196,7 @@ const Register = () => {
                     type="password"
                     className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
                     value={data.password}
-                    onChange={handleOnchange}
+                    onChange={handleOnChange}
                     required
                   />
                 </td>
@@ -167,9 +207,9 @@ const Register = () => {
                 </td>
                 <td className="w-2/3">
                   <label htmlFor="profile_pic">
-                    <div className="rounded-md h-10 mx-2 text-base w-full my-2 outline outline-1 outline-secondary flex justify-center items-center  cursor-pointer ">
-                      <p className="text-xs px-2 ">
-                        {uploadPhoto?.name ? uploadPhoto?.name : "Upload hear"}
+                    <div className="rounded-md h-10 mx-2 text-base w-full my-2 outline outline-1 outline-secondary flex justify-center items-center cursor-pointer">
+                      <p className="text-xs px-2">
+                        {uploadPhoto?.name ? uploadPhoto.name : "Upload here"}
                       </p>
                       {uploadPhoto?.name && (
                         <button
@@ -180,12 +220,15 @@ const Register = () => {
                         </button>
                       )}
                     </div>
+                      <span className="text-xs px-2 text-red-800">
+                         * not required
+                      </span>
                   </label>
                   <input
                     name="profile_pic"
                     id="profile_pic"
                     type="file"
-                    className="rounded-md mx-2 text-base w-full my-2 outline outline-1 outline-secondary  hidden"
+                    className="rounded-md mx-2 text-base w-full my-2 outline outline-1 outline-secondary hidden"
                     onChange={handleUploadPhoto}
                   />
                 </td>
@@ -194,9 +237,9 @@ const Register = () => {
                 <td colSpan="2" className="text-center">
                   <button
                     type="submit"
-                    className="border w-full bg-secondary hover:bg-secondary2  border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white   "
+                    className="border w-full bg-secondary hover:bg-secondary2 border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white"
                   >
-                    Submit
+                    Register
                   </button>
                 </td>
               </tr>
@@ -204,8 +247,11 @@ const Register = () => {
           </table>
         </form>
         <p>
-          Already have Account ?{" "}
-          <Link to={"/email"} className="hover:text-secondary2 font-semibold">
+          Already have Account?{" "}
+          <Link
+            to={"/checkEmail"}
+            className="hover:text-secondary2 font-semibold"
+          >
             Sign in
           </Link>
         </p>
