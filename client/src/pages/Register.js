@@ -138,13 +138,13 @@ const Register = () => {
   };
 
   return (
-    <div className="mt-5 flex justify-center items-center">
-      <div className="text-white border border-secondary max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col m-7">
+    <div className="mt-5 flex justify-center items-center ">
+      <div className="text-white border border-myColor2 max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col m-7">
         <p className="text-2xl py-4">
           <span className="text-xl">
             <b>Welcome to</b>
           </span>{" "}
-          <span className="text-secondary font-bold">ChatHorizon</span>
+          <span className="text-myColor2 font-bold">ChatHorizon</span>
         </p>
         <p className="text-xl font-extralight">Register</p>
         <form
@@ -162,10 +162,11 @@ const Register = () => {
                     name="name"
                     id="name"
                     type="text"
-                    className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
+                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full"
                     value={data.name}
                     onChange={handleOnChange}
                     required
+                    autoFocus
                   />
                 </td>
               </tr>
@@ -178,7 +179,7 @@ const Register = () => {
                     name="email"
                     id="email"
                     type="email"
-                    className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
+                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full"
                     value={data.email}
                     onChange={handleOnChange}
                     required
@@ -194,7 +195,7 @@ const Register = () => {
                     name="password"
                     id="password"
                     type="password"
-                    className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
+                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full"
                     value={data.password}
                     onChange={handleOnChange}
                     required
@@ -207,28 +208,28 @@ const Register = () => {
                 </td>
                 <td className="w-2/3">
                   <label htmlFor="profile_pic">
-                    <div className="rounded-md h-10 mx-2 text-base w-full my-2 outline outline-1 outline-secondary flex justify-center items-center cursor-pointer">
+                    <div className="rounded-md h-10 mx-2 text-base w-full my-2 outline outline-1 outline-myColor2 flex justify-center items-center cursor-pointer">
                       <p className="text-xs px-2">
                         {uploadPhoto?.name ? uploadPhoto.name : "Upload here"}
                       </p>
                       {uploadPhoto?.name && (
                         <button
                           onClick={handleRemoveUploadPhoto}
-                          className="px-2 hover:text-secondary"
+                          className="px-2 hover:text-myColor2"
                         >
                           <IoCloseCircle />
                         </button>
                       )}
                     </div>
-                      <span className="text-xs px-2 text-red-800">
-                         * not required
-                      </span>
+                    <span className="text-xs px-2 text-myColor2">
+                      * not required
+                    </span>
                   </label>
                   <input
                     name="profile_pic"
                     id="profile_pic"
                     type="file"
-                    className="rounded-md mx-2 text-base w-full my-2 outline outline-1 outline-secondary hidden"
+                    className="rounded-md mx-2 text-base w-full my-2 outline outline-1 outline-myColor2 hidden"
                     onChange={handleUploadPhoto}
                   />
                 </td>
@@ -237,7 +238,7 @@ const Register = () => {
                 <td colSpan="2" className="text-center">
                   <button
                     type="submit"
-                    className="border w-full bg-secondary hover:bg-secondary2 border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white"
+                    className="border w-full bg-myColor2 hover:bg-myColor2 border-myColor2 rounded-md my-4 mx-2 px-4 py-1 text-base text-white"
                   >
                     Register
                   </button>
@@ -250,7 +251,7 @@ const Register = () => {
           Already have Account?{" "}
           <Link
             to={"/checkEmail"}
-            className="hover:text-secondary2 font-semibold"
+            className="hover:text-myColor2 font-semibold"
           >
             Sign in
           </Link>

@@ -14,6 +14,6 @@ router.post("/checkEmail", checkEmail);
 router.post("/checkPassword", checkPassword);
 router.get("/userDetail", userDetail);
 router.get("/logout", logout);
-router.post("/update", updateUserDetail)
+router.post("/update", updateUserDetail);
 
 export default router;

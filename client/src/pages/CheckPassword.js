@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { PiUserThin } from "react-icons/pi";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "../redux/userSlice";
 
 const CheckPassword = () => {
   const [data, setData] = useState({
@@ -11,6 +13,7 @@ const CheckPassword = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   // console.log(location);
 
   useEffect(() => {
@@ -36,10 +39,17 @@ const CheckPassword = () => {
     const URL = `${process.env.REACT_APP_BACKEND_URL}api/checkPassword`;
 
     try {
-      const response = await axios.post(URL, {
-        userId: location?.state?.data?._id,
-        password: data.password,
-      });
+      const response = await axios.post(
+        URL,
+        {
+          userId: location?.state?.data?._id,
+          password: data.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
       toast.success(response?.data?.message, {
         position: "top-center",
         autoClose: 2000,
@@ -51,14 +61,18 @@ const CheckPassword = () => {
         theme: "",
       });
 
-      if (response?.data?.success) {
+      console.log("Token Data : ", response);
+
+      if (response.data.success) {
+        dispatch(setToken(response?.data?.token));
+        localStorage.setItem("token", response?.data?.token);
         setData({
           password: "",
         });
         navigate("/");
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message, {
+      toast.error(error.response?.data?.message || error.message, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -68,19 +82,17 @@ const CheckPassword = () => {
         progress: undefined,
         theme: "",
       });
-      console.log("Error : ", error);
     }
-
   };
 
   return (
     <div className="mt-5 flex justify-center  items-center">
-      <div className="text-white border border-secondary max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col m-7">
+      <div className="text-white border border-myColor2 max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col m-7">
         <p className="text-2xl py-4">
           <span className="text-xl">
             <b>Welcome to</b>
           </span>{" "}
-          <span className="text-secondary font-bold">ChatHorizon</span>
+          <span className="text-myColor2 font-bold">ChatHorizon</span>
         </p>
         <p className="text-xl font-extralight">Verify Password</p>
         <div className="max-w-sm mx-aut  overflow-hidden">
@@ -98,7 +110,7 @@ const CheckPassword = () => {
               <p className="text-xl leading-tight">
                 {location?.state?.data?.name}
               </p>
-              <p className="text-sm leading-tight text-gray-600 py-1">
+              <p className="text-sm leading-tight text-myColor3 py-1">
                 {location?.state?.data?.email}
               </p>
             </div>
@@ -119,10 +131,11 @@ const CheckPassword = () => {
                     name="password"
                     id="password"
                     type="password"
-                    className="border border-secondary rounded-md mx-2 px-2 my-2 text-base w-full"
+                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full"
                     value={data.password}
                     onChange={handleOnchange}
                     required
+                    autoFocus
                   />
                 </td>
               </tr>
@@ -131,7 +144,7 @@ const CheckPassword = () => {
                 <td colSpan="2" className="text-center">
                   <button
                     type="submit"
-                    className="border w-full bg-secondary hover:bg-secondary2  border-secondary rounded-md my-4 mx-2 px-4 py-1 text-base text-white   "
+                    className="border w-full bg-myColor2 hover:bg-myColor2  border-myColor2 rounded-md my-4 mx-2 px-4 py-1 text-base text-white   "
                   >
                     Login
                   </button>
@@ -144,7 +157,7 @@ const CheckPassword = () => {
           Forgot Password ?{" "}
           <Link
             to={"/forgot-password"}
-            className="hover:text-secondary2 font-semibold"
+            className="hover:text-myColor2 font-semibold"
           >
             Click here
           </Link>

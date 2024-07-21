@@ -3,7 +3,6 @@ import getUserDetailFromToken from "../helper/getUserDetailFromToken.js";
 async function userDetail(request, response) {
   try {
     const tokens = request.cookies.token || "";
-    console.log(tokens);
     const user = await getUserDetailFromToken(tokens);
 
     return response.status(200).json({

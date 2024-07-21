@@ -3,11 +3,10 @@ import Home from "../pages/Home";
 import Register from "../pages/Register";
 import CheckEmail from "../pages/CheckEmail";
 import CheckPassword from "../pages/CheckPassword";
-import ManagePages from "../components/ManagePages";
 import App from "../App";
 import AuthLayouts from "../layout";
 import ForgotPassword from "../pages/ForgotPassword";
-
+import MessagesPages from "../components/MessagesPage"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +18,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":userId",
-            element: <ManagePages />,
+            element: <MessagesPages />,
           },
         ],
       },
