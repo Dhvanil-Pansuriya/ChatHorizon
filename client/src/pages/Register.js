@@ -144,7 +144,7 @@ const Register = () => {
           <span className="text-xl">
             <b>Welcome to</b>
           </span>{" "}
-          <span className="text-myColor2 font-bold">ChatHorizon</span>
+          <span className="text-myColor3 font-bold">ChatHorizon</span>
         </p>
         <p className="text-xl font-extralight">Register</p>
         <form

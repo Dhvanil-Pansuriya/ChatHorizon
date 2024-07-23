@@ -92,7 +92,7 @@ const CheckPassword = () => {
           <span className="text-xl">
             <b>Welcome to</b>
           </span>{" "}
-          <span className="text-myColor2 font-bold">ChatHorizon</span>
+          <span className="text-myColor3 font-bold">ChatHorizon</span>
         </p>
         <p className="text-xl font-extralight">Verify Password</p>
         <div className="max-w-sm mx-aut  overflow-hidden">

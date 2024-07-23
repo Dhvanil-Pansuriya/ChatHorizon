@@ -61,7 +61,6 @@ const CheckEmail = () => {
       });
       console.log("Error : ", error);
     }
-
   };
 
   return (
@@ -71,7 +70,7 @@ const CheckEmail = () => {
           <span className="text-xl">
             <b>Welcome to</b>
           </span>{" "}
-          <span className="text-myColor2 font-bold">ChatHorizon</span>
+          <span className="text-myColor3 font-bold">ChatHorizon</span>
         </p>
         <p className="text-xl font-extralight">Verify Email</p>
         <form
@@ -113,10 +112,7 @@ const CheckEmail = () => {
         </form>
         <p>
           Already have Account ?{" "}
-          <Link
-            to={"/register"}
-            className="hover:text-myColor2 font-semibold"
-          >
+          <Link to={"/register"} className="hover:text-myColor2 font-semibold">
             Sign in
           </Link>
         </p>
