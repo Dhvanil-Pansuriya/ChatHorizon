@@ -138,8 +138,13 @@ const Register = () => {
   };
 
   return (
-    <div className="mt-5 flex justify-center items-center ">
-      <div className="text-white border border-myColor2 max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col m-7">
+
+    <>
+    <div className="min-h-screen bg-myColor1 flex justify-center items-center flex-col">
+    <p className="josefin-sans text-5xl m-10 text-myColor3 flex justify-center  ">
+        ChatHorizon
+      </p>
+      <div className="text-white border border-myColor2 max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col">
         <p className="text-2xl py-4">
           <span className="text-xl">
             <b>Welcome to</b>
@@ -258,6 +263,7 @@ const Register = () => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 

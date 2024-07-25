@@ -12,7 +12,7 @@ const uploadFile = async (file) => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "",
+    theme: "light",
   });
 
   const formData = new FormData();

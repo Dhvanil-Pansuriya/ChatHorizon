@@ -25,33 +25,33 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: (
-          <AuthLayouts>
+          // <AuthLayouts>
             <Register />
-          </AuthLayouts>
+          // </AuthLayouts>
         ),
       },
       {
         path: "checkEmail",
         element: (
-          <AuthLayouts>
+          // <AuthLayouts>
             <CheckEmail />
-          </AuthLayouts>
+          // </AuthLayouts>
         ),
       },
       {
         path: "password",
         element: (
-          <AuthLayouts>
+          // <AuthLayouts>
             <CheckPassword />
-          </AuthLayouts>
+          // </AuthLayouts>
         ),
       },
       {
         path: "forgot-password",
         element: (
-          <AuthLayouts>
+          // <AuthLayouts>
             <ForgotPassword />
-          </AuthLayouts>
+          // </AuthLayouts>
         ),
       },
     ],

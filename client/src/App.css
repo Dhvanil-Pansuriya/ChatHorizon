@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
-*{
-  background-color: #222831;
-}
+
 
 .josefin-sans {
   font-family: "Josefin Sans", sans-serif;
@@ -50,4 +48,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
