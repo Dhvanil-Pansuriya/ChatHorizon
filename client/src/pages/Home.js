@@ -1,18 +1,17 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logout, setUser } from "../redux/userSlice";
 import Sidebar from "../components/Sidebar";
 
 const Home = () => {
-
-
   const user = useSelector((state) => state.user);
   console.log("Redux user : ", user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchUserData = async () => {
     try {
@@ -24,12 +23,12 @@ const Home = () => {
 
       dispatch(setUser(response.data.data));
 
-      if (response.data.logout) {
+      if (response.data.data.logout) {
         dispatch(logout());
         navigate("/checkEmail");
       }
 
-      // console.log("Current User : ", response);
+      console.log("Current User : ", response);
     } catch (error) {
       toast.error(error.response?.data?.message || error.message, {
         position: "top-center",
@@ -46,15 +45,42 @@ const Home = () => {
 
   useEffect(() => {}, [fetchUserData()]);
 
+  const basePath = location.pathname === "/";
+
   return (
-    <main className="text-white grid lg:grid-cols-[340px,1fr] h-screen max-h-screen">
-      <section className="">
-        <Sidebar/>
+    <div className="grid lg:grid-cols-[340px,1fr] h-screen max-h-screen">
+      <section className={`bg-myColor3 ${!basePath && "hidden"} lg:block`}>
+        <Sidebar />
       </section>
-      <section>
+
+      <section className={`${basePath && "hidden"} bg-myColor3`}>
         <Outlet />
       </section>
-    </main>
+
+      <div
+        className={`justify-center items-center flex-col gap-2 hidden bg-myColor3 ${
+          !basePath ? "hidden" : "lg:flex"
+        }`}
+      >
+        <div>
+          <p className="nunito text-5xl mt-10 text-myColor1 flex justify-center ">
+            <span className="nunito text-4xl text-myColor2 flex justify-center items-end">
+              Hello
+            </span>{" "}
+            , {user.name}
+          </p>
+          <p className="nunito text-2xl m-2 text-myColor2 flex justify-center font-extrabold">
+            Welcome to :{")"}
+          </p>
+          <p className="josefin-sans text-5xl mt-2 text-myColor1 flex justify-center  ">
+            ChatHorizon
+          </p>
+        </div>
+        {/* <p className="text-lg mt-2 text-myColor2">
+          Select user to send message
+        </p> */}
+      </div>
+    </div>
   );
 };
 

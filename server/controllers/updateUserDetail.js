@@ -17,6 +17,8 @@ async function updateUserDetail(request, response) {
 
     const userInformation = await User.findById(user._id).select("-password");
 
+    // console.log(userInformation);
+
     return response.status(200).json({
       message: "User Updated Successfully...",
       user: userInformation,

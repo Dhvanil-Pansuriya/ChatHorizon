@@ -11,14 +11,14 @@ import EditUserDetail from "./EditUserDetail";
 const Sidebar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
- 
-  console.log("User :", user?._id);
-  console.log("Redux user : ", user);
+
+  // console.log("User :", user?._id);
+  // console.log("Redux user : ", user);
 
   const [editUserSection, setEditUserSection] = useState(false);
 
   return (
-    <div className="w-full h-full bg-myColor2 rounded-tr-lg">
+    <div className="w-full h-full bg-myColor2 rounded-tr-lg grid grid-cols-[48px,1fr]">
       <div className="bg-myColor1 w-12 h-full rounded-tr-lg py-3 flex flex-col justify-between ">
         <div>
           <NavLink
@@ -64,6 +64,18 @@ const Sidebar = () => {
               <CiLogout size={30} />
             </span>
           </button>
+        </div>
+      </div>
+
+      <div className="w-full">
+        <div>
+          <h1 className="nunito text-2xl h-16 p-4 flex items-center">
+            Messages
+          </h1>
+          <div className="bg-myColor1 p-[0.5px]" />
+        </div>
+        <div className=" h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
+          users
         </div>
       </div>
 

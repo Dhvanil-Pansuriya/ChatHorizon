@@ -36,7 +36,7 @@ const CheckEmail = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "",
+        theme: "dark",
       });
 
       if (response?.data?.success) {
@@ -57,7 +57,7 @@ const CheckEmail = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "",
+        theme: "dark",
       });
       console.log("Error : ", error);
     }
@@ -88,7 +88,7 @@ const CheckEmail = () => {
                     name="email"
                     id="email"
                     type="email"
-                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full"
+                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full text-myColor1"
                     value={data.email}
                     onChange={handleOnchange}
                     required

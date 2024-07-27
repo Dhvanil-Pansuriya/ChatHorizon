@@ -108,7 +108,7 @@ const Register = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "",
+        theme: "dark",
       });
 
       if (response?.data?.success) {
@@ -129,7 +129,7 @@ const Register = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "",
+        theme: "dark",
       });
       console.log("Error : ", error);
     }
@@ -167,7 +167,7 @@ const Register = () => {
                     name="name"
                     id="name"
                     type="text"
-                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full"
+                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full text-myColor1"
                     value={data.name}
                     onChange={handleOnChange}
                     required
@@ -184,7 +184,7 @@ const Register = () => {
                     name="email"
                     id="email"
                     type="email"
-                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full"
+                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full text-myColor1"
                     value={data.email}
                     onChange={handleOnChange}
                     required
@@ -200,7 +200,7 @@ const Register = () => {
                     name="password"
                     id="password"
                     type="password"
-                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full"
+                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full text-myColor1"
                     value={data.password}
                     onChange={handleOnChange}
                     required
