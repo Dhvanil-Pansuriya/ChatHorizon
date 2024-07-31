@@ -8,7 +8,7 @@ import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
-  console.log("Redux user : ", user);
+  // console.log("Redux user : ", user); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

@@ -101,7 +101,9 @@ const CheckPassword = () => {
               <img
                 className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 w-16 rounded-full object-cover"
                 src={location?.state?.data?.profile_pic}
-                alt="Profile"
+                alt={
+                  <PiUserThin className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 w-16 rounded-full object-cover text-gray-400" />
+                }
               />
             ) : (
               <PiUserThin className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 w-16 rounded-full object-cover text-gray-400" />
