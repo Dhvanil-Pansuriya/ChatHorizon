@@ -21,6 +21,8 @@ const Home = () => {
         withCredentials: true,
       });
 
+      // console.log(response);
+
       dispatch(setUser(response.data.data));
 
       if (response.data.data.logout) {
@@ -30,6 +32,7 @@ const Home = () => {
 
       console.log("Current User : ", response);
     } catch (error) {
+      console.log(error);
       toast.error(error.response?.data?.message || error.message, {
         position: "top-center",
         autoClose: 2000,

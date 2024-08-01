@@ -11,7 +11,7 @@ async function userDetail(request, response) {
     });
   } catch (error) {
     response.status(500).json({
-      message: "Error at userDetail.js" + error.message,
+      message: "Error at userDetail.js " + error.message,
     });
   }
 }

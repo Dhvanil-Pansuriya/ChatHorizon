@@ -120,6 +120,7 @@ const Register = () => {
         });
         navigate("/checkEmail");
       }
+
     } catch (error) {
       toast.error(error?.response?.data?.message, {
         position: "top-center",
@@ -134,7 +135,7 @@ const Register = () => {
       console.log("Error : ", error);
     }
 
-    console.log(data);
+    // console.log(data);
   };
 
   return (

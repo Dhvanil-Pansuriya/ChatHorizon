@@ -59,7 +59,7 @@ const CheckEmail = () => {
         progress: undefined,
         theme: "dark",
       });
-      console.log("Error : ", error);
+      // console.log("Error : ", error);
     }
   };
 
