@@ -76,7 +76,7 @@ const Home = () => {
             Welcome to :{")"}
           </p>
           <p className="josefin-sans text-5xl mt-2 text-myColor1 flex justify-center  ">
-            ChatHorizon
+            ChatHorizon by MR
           </p>
         </div>
         {/* <p className="text-lg mt-2 text-myColor2">
