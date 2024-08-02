@@ -8,7 +8,7 @@ import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
-  // console.log("Redux user : ", user); 
+  console.log("Redux user : ", user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,7 +21,7 @@ const Home = () => {
         withCredentials: true,
       });
 
-      // console.log(response);
+      console.log(response);
 
       dispatch(setUser(response.data.data));
 
@@ -33,7 +33,7 @@ const Home = () => {
       console.log("Current User : ", response);
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || error.message, {
+      toast.error(error?.response?.data?.message || error.message, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
