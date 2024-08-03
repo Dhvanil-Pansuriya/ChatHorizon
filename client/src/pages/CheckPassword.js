@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { PiUserThin } from "react-icons/pi";
 import { useDispatch } from "react-redux";
-import { setToken, setUser } from "../redux/userSlice";
+import { setToken } from "../redux/userSlice";
 
 const CheckPassword = () => {
   const [data, setData] = useState({

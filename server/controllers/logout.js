@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 async function logout(request, response) {
   try {
     const cookiesOptions = {

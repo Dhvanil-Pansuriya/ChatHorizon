@@ -4,7 +4,6 @@ import Register from "../pages/Register";
 import CheckEmail from "../pages/CheckEmail";
 import CheckPassword from "../pages/CheckPassword";
 import App from "../App";
-import AuthLayouts from "../layout";
 import ForgotPassword from "../pages/ForgotPassword";
 import MessagesPages from "../components/MessagesPage"
 const router = createBrowserRouter([

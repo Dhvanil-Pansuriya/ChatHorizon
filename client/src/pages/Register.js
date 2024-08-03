@@ -17,7 +17,7 @@ const Register = () => {
   const [uploadPhoto, setUploadPhoto] = useState(null);
   const [fileSize, setFileSize] = useState(null);
   const navigate = useNavigate();
-
+  
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({

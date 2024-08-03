@@ -1,7 +1,7 @@
 import React from "react";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { PiUserPlusThin } from "react-icons/pi";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import { PiUserCircleThin, PiUsersThin } from "react-icons/pi";
 import { useSelector } from "react-redux";
@@ -10,7 +10,6 @@ import EditUserDetail from "./EditUserDetail";
 import SearchUser from "./SearchUser";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
   // console.log("User :", user?._id);

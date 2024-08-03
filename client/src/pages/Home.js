@@ -16,15 +16,16 @@ const Home = () => {
   const fetchUserData = async () => {
     try {
       const URL = `${process.env.REACT_APP_BACKEND_URL}api/userDetail`;
+
       const response = await axios({
         url: URL,
         withCredentials: true,
       });
 
-      console.log(response);
-
+      
       dispatch(setUser(response.data.data));
-
+      
+      console.log("Response at Home.js : ",response.data);
       if (response.data.data.logout) {
         dispatch(logout());
         navigate("/checkEmail");
@@ -32,7 +33,7 @@ const Home = () => {
 
       console.log("Current User : ", response);
     } catch (error) {
-      console.log(error);
+      console.log("Error at Home : ", error);
       toast.error(error?.response?.data?.message || error.message, {
         position: "top-center",
         autoClose: 2000,
@@ -46,8 +47,9 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {}, [fetchUserData()]);
-
+  useEffect(() => {
+    fetchUserData();
+  }, []);
   const basePath = location.pathname === "/";
 
   return (
@@ -76,12 +78,10 @@ const Home = () => {
             Welcome to :{")"}
           </p>
           <p className="josefin-sans text-5xl mt-2 text-myColor1 flex justify-center  ">
-            ChatHorizon by MR
+            ChatHorizon Dhvanil
           </p>
         </div>
-        {/* <p className="text-lg mt-2 text-myColor2">
-          Select user to send message
-        </p> */}
+        <p className="text-lg  text-myColor2">Select user to send message</p>
       </div>
     </div>
   );
