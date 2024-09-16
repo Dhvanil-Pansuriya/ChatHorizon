@@ -15,14 +15,29 @@
   font-style: normal;
 }
 
-.scrollbar::-webkit-scrollbar{
+.scrollbar::-webkit-scrollbar {
   width: 12px;
 }
 
-.scrollbar::-webkit-scrollbar-track{
-  @apply bg-myColor2
+.scrollbar::-webkit-scrollbar-track {
+  @apply bg-myColor2;
 }
 
-.scrollbar::-webkit-scrollbar-thumb{
-  @apply bg-myColor4 rounded-xl 
+.scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-myColor4 rounded-xl;
+}
+
+.scrollbar-container {
+  margin: 20px;
+}
+.scrollbar-find-user::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollbar-find-user::-webkit-scrollbar-track {
+  @apply bg-myColor5 rounded-sm;
+}
+
+.scrollbar-find-user::-webkit-scrollbar-thumb {
+  @apply bg-myColor2 rounded-sm;
 }

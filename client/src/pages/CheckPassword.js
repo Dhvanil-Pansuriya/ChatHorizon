@@ -36,7 +36,7 @@ const CheckPassword = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    const URL = `${process.env.REACT_APP_BACKEND_URL}api/checkPassword`;
+    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/checkPassword`;
 
     try {
       const response = await axios.post(
@@ -61,7 +61,7 @@ const CheckPassword = () => {
         theme: "dark",
       });
 
-      console.log("Token Data : ", response);
+      // console.log("Token Data : ", response);
 
       if (response.data.success) {
         dispatch(setToken(response?.data?.token));

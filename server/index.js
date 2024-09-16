@@ -4,24 +4,17 @@ import dotenv from "dotenv";
 import connectDB from "./config/connectDB.js";
 import router from "./routes/index.js";
 import cookieParser from "cookie-parser";
+import { app, server } from "./socket/index.js";
 
 dotenv.config({
   path: "./.env",
 });
 
-const app = express();
-
-// app.use(
-//   cors({
-//     origin: process.env.FRONTEND_URL,
-//     credentials: true,
-//   })
-// );
+// const app = express();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_ALL_URL ,
-    // origin: [process.env.FRONTEND_URL, process.env.FRONTEND_URL2],
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
@@ -41,7 +34,7 @@ app.get("/", (request, response) => {
 app.use("/api", router);
 
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log("Server is running successfully at : http://localhost:" + PORT);
   });
 });

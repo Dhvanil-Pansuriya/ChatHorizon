@@ -24,7 +24,7 @@ const CheckEmail = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    const URL = `${process.env.REACT_APP_BACKEND_URL}api/checkEmail`;
+    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/checkEmail`;
 
     try {
       const response = await axios.post(URL, data);
@@ -49,17 +49,18 @@ const CheckEmail = () => {
         });
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message, {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      // console.log("Error : ", error);
+      console.log(error?.response?.data?.message);
+      // toast.error(error?.response?.data?.message, {
+      //   position: "top-center",
+      //   autoClose: 2000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "dark",
+      // });
+      console.log("Error : ", error);
     }
   };
 

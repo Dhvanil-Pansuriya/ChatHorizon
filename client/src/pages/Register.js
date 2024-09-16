@@ -39,7 +39,7 @@ const Register = () => {
       const fileSizeInKB = (compressedFile.size / 1024).toFixed(2);
       const fileSizeInMB = (fileSizeInKB / 1000).toFixed(2);
 
-      console.log(fileSizeInKB, fileSizeInMB);
+      // console.log(fileSizeInKB, fileSizeInMB);
 
       if (fileSizeInKB > 1000) {
         toast.error(
@@ -95,11 +95,11 @@ const Register = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    const URL = `${process.env.REACT_APP_BACKEND_URL}api/register`;
+    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/register`;
 
     try {
       const response = await axios.post(URL, data);
-      console.log("Response : ", response);
+      // console.log("Response : ", response);
       toast.success(response?.data?.message, {
         position: "top-center",
         autoClose: 2000,

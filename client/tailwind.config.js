@@ -4,11 +4,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        myColor1: "#222831",
-        myColor2: "#393E46",
-        myColor3: "#B7C4CF",
-        myColor4: "#EEEEEE",
-        myColor5: "#EBF4F6",
+        myColor1: "#1E2022",
+        myColor2: "#52616B",
+        myColor3: "#C9D6DF",
+        myColor4: "#F0F5F9",
+        myColor5: "#fbfbf2",
+        // for online user myColor5
+        myColor6: "#0D7C66",
       },
     },
   },

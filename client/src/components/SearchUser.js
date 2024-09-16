@@ -1,12 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { GoSearch } from "react-icons/go";
 import Loading from "./Loading";
 import UserCard from "./UserCard";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { VscClose } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
-const SearchUser = () => {
+const SearchUser = ({ onClose }) => {
   const [searchUser, setSearchUser] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const handleUserSearch = async () => {
+    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/searchUser`;
+
+    try {
+      setLoading(true);
+      const response = await axios.post(URL, {
+        search: search,
+      });
+      setLoading(false);
+      setSearchUser(response.data.data);
+    } catch (error) {
+      toast.error(error?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  };
+
+  useEffect(() => {
+    handleUserSearch();
+  }, [search]);
+
+  // console.log("Search User :", searchUser);
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-myColor2 bg-opacity-50">
@@ -16,15 +51,20 @@ const SearchUser = () => {
             type="text"
             className="w-full bg-myColor4 outline-none py-1 h-full px-3 rounded-lg py-3 pl-10"
             placeholder="Search user by Name or Email"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
           />
           <GoSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <button className="ml-3 px-4 py-2 border-2 hover:bg-myColor4 border-myColor4 text-myColor1 rounded-lg flex items-center">
             <GoSearch className="mr-2" />
             Search
           </button>
+          <Link onClick={onClose} className="ml-2 border-2 hover:bg-myColor2 border-myColor1 text-myColor1 rounded-lg flex items-center">
+            <VscClose className="my-3 mx-2" />
+          </Link>
         </div>
         {/* Display Search User */}
-        <div className="bg-myColor4 w-full mt-2 p-4 rounded-md">
+        <div className=" w-full mt-4">
           {searchUser.length === 0 && !loading && (
             <div className="rounded m-3 flex justify-center items-center flex-col">
               <h1 className="text-4xl font-semibold mb-4 text-myColor2">
@@ -45,12 +85,16 @@ const SearchUser = () => {
               </p>
             </div>
           )}
-          {searchUser.length !== 0 &&
-            !loading &&
-            searchUser.map((user, index) => {
-              return <UserCard key={user._id} user={user} />;
-            })}
-        <UserCard/>
+          <div className=" h-[calc(90vh-65px)] overflow-x-hidden overflow-y-auto scrollbar-find-user ">
+            {searchUser.length !== 0 &&
+              !loading &&
+              searchUser.map((user, index) => {
+                return (
+                  <UserCard key={user._id} user={user} onClose={onClose} />
+                );
+              })}
+          </div>
+          {/* <UserCard /> */}
         </div>
       </div>
     </div>

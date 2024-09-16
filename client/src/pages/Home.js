@@ -3,8 +3,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { logout, setUser } from "../redux/userSlice";
+import { logout, setOnlineUser, setUser } from "../redux/userSlice";
 import Sidebar from "../components/Sidebar";
+import io from "socket.io-client";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
@@ -15,25 +16,24 @@ const Home = () => {
 
   const fetchUserData = async () => {
     try {
-      const URL = `${process.env.REACT_APP_BACKEND_URL}api/userDetail`;
+      const URL = `${process.env.REACT_APP_BACKEND_URL}/api/userDetail`;
 
       const response = await axios({
         url: URL,
         withCredentials: true,
       });
 
-      
       dispatch(setUser(response.data.data));
-      
-      console.log("Response at Home.js : ",response.data);
+
+      // console.log("Response at Home.js : ", response.data);
       if (response.data.data.logout) {
         dispatch(logout());
         navigate("/checkEmail");
       }
 
-      console.log("Current User : ", response);
+      // console.log("Current User : ", response);
     } catch (error) {
-      console.log("Error at Home : ", error);
+      // console.log("Error at Home : ", error);
       toast.error(error?.response?.data?.message || error.message, {
         position: "top-center",
         autoClose: 2000,
@@ -50,6 +50,27 @@ const Home = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  /**
+   * Socket Connection
+   */
+  useEffect(() => {
+    const socketConnection = io(process.env.REACT_APP_BACKEND_URL, {
+      auth: {
+        token: localStorage.getItem("token"),
+      },
+      withCredentials: true,
+    });
+
+    socketConnection.on("onlineUser", (data) => {
+      dispatch(setOnlineUser(data));
+    });
+
+    return () => {
+      socketConnection.disconnect();
+    };
+  }, []);
+
   const basePath = location.pathname === "/";
 
   return (
@@ -78,7 +99,7 @@ const Home = () => {
             Welcome to :{")"}
           </p>
           <p className="josefin-sans text-5xl mt-2 text-myColor1 flex justify-center  ">
-            ChatHorizon Dhvanil
+            ChatHorizon
           </p>
         </div>
         <p className="text-lg  text-myColor2">Select user to send message</p>
