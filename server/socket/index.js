@@ -19,7 +19,6 @@ const io = new Server(server, {
   },
 });
 
-console.log(process.env.FRONTEND_URL);
 
 const onlineUser = new Set();
 
@@ -29,7 +28,7 @@ io.on("connection", async (socket) => {
   const token = socket.handshake.auth.token;
 
   const user = await getUserDetailFromToken(token);
-  console.log("User : ", user);
+  // console.log("User : ", user);
 
   socket.join(user?._id);
   onlineUser.add(user?._id);

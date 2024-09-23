@@ -2,24 +2,29 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+
 import { toast } from "react-toastify";
-import { logout, setOnlineUser, setUser } from "../redux/userSlice";
+import {
+  logout,
+  setOnlineUser,
+  setSocketConnection,
+  setUser,
+} from "../redux/userSlice";
 import Sidebar from "../components/Sidebar";
 import io from "socket.io-client";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
-  console.log("Redux user : ", user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   const fetchUserData = async () => {
     try {
       const URL = `${process.env.REACT_APP_BACKEND_URL}/api/userDetail`;
 
       const response = await axios({
-        url: URL,
+        url: URL, 
         withCredentials: true,
       });
 
@@ -48,8 +53,12 @@ const Home = () => {
   };
 
   useEffect(() => {
+    
     fetchUserData();
   }, []);
+
+
+
 
   /**
    * Socket Connection
@@ -64,12 +73,22 @@ const Home = () => {
 
     socketConnection.on("onlineUser", (data) => {
       dispatch(setOnlineUser(data));
+      console.log("data", data);
+      
     });
 
+    dispatch(setSocketConnection(socketConnection));
+
+
+    
     return () => {
       socketConnection.disconnect();
     };
   }, []);
+
+
+ 
+  console.log("Redux user : ", user);
 
   const basePath = location.pathname === "/";
 
