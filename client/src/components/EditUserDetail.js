@@ -128,30 +128,30 @@ const EditUserDetail = ({ onClose, user }) => {
 
   return (
     <>
-      <div className="fixed inset-0 bg-myColor1 bg-opacity-25 flex justify-center items-center">
-        <div className="p-8 rounded-lg shadow-lg w-full max-w-lg border bg-myColor1 border-myColor2">
-          <h2 className="text-2xl font-bold mb-6 text-center text-myColor4">
+      <div className="fixed inset-0 bg-myColor1 bg-opacity-70 flex justify-center items-center">
+        <div className="p-8 rounded-lg shadow-lg w-full max-w-lg border bg-myColor1 border-myColor2 text-myColor3">
+          <h2 className="text-2xl font-bold mb-6 text-center text-myColor2">
             Profile Details
           </h2>
-          <p className="text-sm mb-8 text-center text-gray-600">
+          <p className="text-sm mb-8 text-center text-myColor3 ">
             Edit user details
           </p>
           <form onSubmit={handleSubmit}>
-            <div className="space-y-6">
+            <div className="space-y-6 ">
               <div className="flex justify-between items-center">
                 <label
                   htmlFor="profile_pic"
-                  className="font-medium text-myColor4"
+                  className="font-medium text-myColor3"
                 >
                   Profile:
                 </label>
                 <button
                   onClick={handleOpenUploadPhoto}
-                  className="text-center flex w-72 flex items-center "
+                  className="text-center  w-72 flex items-center "
                 >
                   {data?.profile_pic ? (
                     <img
-                      className="h-20 w-20 rounded-full object-cover mx-auto border border-myColor3 border-2 hover:cursor-pointer"
+                      className="h-20 w-20 rounded-full object-cover mx-auto border-2 border-myColor2  hover:cursor-pointer"
                       src={data?.profile_pic}
                       alt="Profile"
                     />
@@ -170,7 +170,7 @@ const EditUserDetail = ({ onClose, user }) => {
               </div>
 
               <div className="flex justify-between items-center">
-                <label htmlFor="name" className="font-medium text-myColor4">
+                <label htmlFor="name" className="font-medium text-myColor3">
                   Name:
                 </label>
                 <input

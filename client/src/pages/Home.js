@@ -79,8 +79,6 @@ const Home = () => {
 
     dispatch(setSocketConnection(socketConnection));
 
-
-    
     return () => {
       socketConnection.disconnect();
     };
@@ -94,6 +92,7 @@ const Home = () => {
 
   return (
     <div className="grid lg:grid-cols-[340px,1fr] h-screen max-h-screen">
+      
       <section className={`bg-myColor3 ${!basePath && "hidden"} lg:block`}>
         <Sidebar />
       </section>
@@ -108,11 +107,11 @@ const Home = () => {
         }`}
       >
         <div>
-          <p className="nunito text-5xl mt-10 text-myColor1 flex justify-center ">
-            <span className="nunito text-4xl text-myColor2 flex justify-center items-end">
+          <p className="nunito text-5xl mt-10 text-myColor1 flex justify-center flex-col">
+            <span className="nunito text-4xl text-myColor2 flex justify-center items-end pb-3">
               Hello
             </span>{" "}
-            , {user.name}
+             {user.name}
           </p>
           <p className="nunito text-2xl m-2 text-myColor2 flex justify-center font-extrabold">
             Welcome to :{")"}
@@ -122,7 +121,10 @@ const Home = () => {
           </p>
         </div>
         <p className="text-lg  text-myColor2">Select user to send message</p>
+        
       </div>
+      
+      
     </div>
   );
 };

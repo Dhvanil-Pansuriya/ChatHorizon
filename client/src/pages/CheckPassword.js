@@ -96,10 +96,10 @@ const CheckPassword = () => {
         </p>
         <p className="text-xl font-extralight">Verify Password</p>
         <div className="max-w-sm mx-aut  overflow-hidden">
-          <div className="sm:flex sm:items-center px-6 py-4">
+          <div className="sm:flex sm:items-center px-6 py-4 ">
             {location?.state?.data?.profile_pic ? (
               <img
-                className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 w-16 rounded-full object-cover"
+                className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-14 w-14 rounded-full object-cover border-2 border-myColor2"
                 src={location?.state?.data?.profile_pic}
                 alt={
                   <PiUserThin className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 w-16 rounded-full object-cover text-gray-400" />
@@ -108,8 +108,8 @@ const CheckPassword = () => {
             ) : (
               <PiUserThin className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 w-16 rounded-full object-cover text-gray-400" />
             )}
-            <div className="mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left">
-              <p className="text-xl leading-tight">
+            <div className="mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left ">
+              <p className="text-s leading-tight">
                 {location?.state?.data?.name}
               </p>
               <p className="text-sm leading-tight text-myColor3 py-1">
