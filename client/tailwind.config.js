@@ -20,7 +20,8 @@ module.exports = {
         // myColor5: "#ffffff",
         
         // Optional Color ByDefault
-        myColor6: "#0D7C66",
+        myColor6: "#57A34C",
+        myColor7: "#000000",
       },
     },
   },

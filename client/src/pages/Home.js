@@ -35,10 +35,12 @@ const Home = () => {
         dispatch(logout());
         navigate("/checkEmail");
       }
-
+      
       // console.log("Current User : ", response);
     } catch (error) {
-      // console.log("Error at Home : ", error);
+      console.log("Error at Home : ", error);
+      dispatch(logout());
+      navigate("/checkEmail");
       toast.error(error?.response?.data?.message || error.message, {
         position: "top-center",
         autoClose: 2000,
@@ -73,7 +75,7 @@ const Home = () => {
 
     socketConnection.on("onlineUser", (data) => {
       dispatch(setOnlineUser(data));
-      console.log("data", data);
+      // console.log("data", data);
       
     });
 
@@ -86,7 +88,7 @@ const Home = () => {
 
 
  
-  console.log("Redux user : ", user);
+  // console.log("Redux user : ", user);
 
   const basePath = location.pathname === "/";
 
@@ -107,11 +109,11 @@ const Home = () => {
         }`}
       >
         <div>
-          <p className="nunito text-5xl mt-10 text-myColor1 flex justify-center flex-col">
+          <p className="nunito text-4xl mt-10 text-myColor1 flex justify-center">
             <span className="nunito text-4xl text-myColor2 flex justify-center items-end pb-3">
               Hello
             </span>{" "}
-             {user.name}
+             , {user.name}
           </p>
           <p className="nunito text-2xl m-2 text-myColor2 flex justify-center font-extrabold">
             Welcome to :{")"}

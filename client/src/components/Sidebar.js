@@ -61,8 +61,8 @@ const Sidebar = () => {
   const isOnline = onlineUser.includes(user?._id);
 
   return (
-    <div className="w-full h-full bg-myColor2 rounded-tr-lg grid grid-cols-[48px,1fr]">
-      <div className="bg-myColor1 w-12 h-full rounded-tr-lg py-3 flex flex-col justify-between text-myColor3 ">
+    <div className="w-full h-full bg-myColor2  grid grid-cols-[48px,1fr]">
+      <div className="bg-myColor1 w-12 h-full py-3 flex flex-col justify-between text-myColor3 ">
         <div>
           <NavLink
             className={({ isActive }) =>

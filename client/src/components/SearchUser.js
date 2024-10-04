@@ -41,10 +41,9 @@ const SearchUser = ({ onClose }) => {
     handleUserSearch();
   }, [search]);
 
-  // console.log("Search User :", searchUser);
 
   return (
-    <div className="fixed top-0 bottom-0 right-0 left-0 bg-myColor1 bg-opacity-80">
+    <div className="fixed top-0 bottom-0 right-0 left-0 bg-myColor1 bg-opacity-80 z-10">
       <div className="w-full max-w-xl mx-auto m-10">
         <div className="relative flex items-center">
           <input
@@ -59,9 +58,9 @@ const SearchUser = ({ onClose }) => {
             <GoSearch className="mr-2" />
             Search
           </button>
-          <Link onClick={onClose} className="ml-2 border-2 hover:bg-myColor4 border-myColor1 text-myColor1 rounded-lg flex items-center">
+          <div onClick={onClose} className="ml-2 border-2 hover:bg-myColor4 border-myColor1 text-myColor1 rounded-lg flex items-center">
             <VscClose className="my-3 mx-2" />
-          </Link>
+          </div>
         </div>
         {/* Display Search User */}
         <div className=" w-full mt-4">
@@ -93,6 +92,7 @@ const SearchUser = ({ onClose }) => {
                   <UserCard key={user._id} user={user} onClose={onClose} />
                 );
               })}
+              
           </div>
           {/* <UserCard /> */}
         </div>

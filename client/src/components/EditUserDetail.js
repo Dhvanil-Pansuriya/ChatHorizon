@@ -128,7 +128,7 @@ const EditUserDetail = ({ onClose, user }) => {
 
   return (
     <>
-      <div className="fixed inset-0 bg-myColor1 bg-opacity-70 flex justify-center items-center">
+      <div className="fixed inset-0 bg-myColor1 bg-opacity-70 flex justify-center items-center z-10">
         <div className="p-8 rounded-lg shadow-lg w-full max-w-lg border bg-myColor1 border-myColor2 text-myColor3">
           <h2 className="text-2xl font-bold mb-6 text-center text-myColor2">
             Profile Details

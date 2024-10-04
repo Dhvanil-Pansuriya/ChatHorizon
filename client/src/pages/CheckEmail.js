@@ -50,16 +50,16 @@ const CheckEmail = () => {
       }
     } catch (error) {
       console.log(error?.response?.data?.message);
-      // toast.error(error?.response?.data?.message, {
-      //   position: "top-center",
-      //   autoClose: 2000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: "dark",
-      // });
+      toast.error(error?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       console.log("Error : ", error);
     }
   };
