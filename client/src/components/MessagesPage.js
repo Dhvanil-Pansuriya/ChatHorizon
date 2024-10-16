@@ -5,6 +5,10 @@ import { PiUserCircleThin } from "react-icons/pi";
 import { CiWifiOn, CiWifiOff } from "react-icons/ci";
 import { FaBars } from "react-icons/fa6";
 import { IoChevronBack } from "react-icons/io5";
+import { HiPlus } from "react-icons/hi";
+import { MdImage } from "react-icons/md";
+import { FaVideo } from "react-icons/fa6";
+
 
 const MessagesPage = () => {
   const param = useParams();
@@ -43,11 +47,10 @@ const MessagesPage = () => {
     <>
       <header className="sticky top-0 h-16 bg-myColor4 z-0">
         <div className="flex items-center justify-between h-16 pr-6 pl-1">
-
           <div className="flex items-center px-4 space-x-4">
-          <Link className="lg:hidden" to={"/"}>
-            <IoChevronBack size={30} />
-          </Link>
+            <Link className="lg:hidden" to={"/"}>
+              <IoChevronBack size={30} />
+            </Link>
             {dataUser?.profile_pic ? (
               <img
                 className="h-11 w-11 rounded-full object-cover border-2"
@@ -86,8 +89,37 @@ const MessagesPage = () => {
         </div>
       </header>
 
-      <section className="h-[calc(100vh-64px)] border-4 border-myColor6">
-        Message Display here
+      <section
+        className="h-[calc(100vh-128px)] border-4 border-myColor6 overflow-x-hidden overflow-y-scroll scrollbar-message-user
+      "
+      >
+        Message Display here (continue)
+      </section>
+
+      <section className=" bg-myColor2 h-16 flex items-center p-4">
+        <div className="relative">
+          <button className="h-10 w-10 border border-myColor1 flex items-center justify-center rounded-xl ">
+            <HiPlus
+              size={25}
+              className="hover:scale-125 transition-transform duration-300"
+            />
+          </button>
+
+          <form>
+            <label htmlFor="image" >
+              <div>
+                <MdImage size={20} />
+                <p>Image</p>
+              </div>
+            </label>
+            <label htmlFor="vodeo" >
+              <div>
+                <FaVideo size={20} />
+                <p>Video</p>
+              </div>
+            </label>
+          </form>
+        </div>
       </section>
     </>
   );

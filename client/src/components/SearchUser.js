@@ -6,7 +6,6 @@ import UserCard from "./UserCard";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { VscClose } from "react-icons/vsc";
-import { Link } from "react-router-dom";
 
 const SearchUser = ({ onClose }) => {
   const [searchUser, setSearchUser] = useState([]);
@@ -44,7 +43,7 @@ const SearchUser = ({ onClose }) => {
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-myColor1 bg-opacity-80 z-10">
-      <div className="w-full max-w-xl mx-auto m-10">
+      <div className="w-full max-w-xl mx-auto m-10 ">
         <div className="relative flex items-center">
           <input
             type="text"

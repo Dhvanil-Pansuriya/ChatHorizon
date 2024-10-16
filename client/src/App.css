@@ -41,3 +41,16 @@
 .scrollbar-find-user::-webkit-scrollbar-thumb {
   @apply bg-myColor2 rounded-sm;
 }
+
+
+.scrollbar-message-user::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollbar-message-user::-webkit-scrollbar-track {
+  @apply bg-myColor5 rounded-sm;
+}
+
+.scrollbar-message-user::-webkit-scrollbar-thumb {
+  @apply bg-myColor2 rounded-sm;
+}
