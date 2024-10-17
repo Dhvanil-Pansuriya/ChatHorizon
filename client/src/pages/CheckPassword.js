@@ -14,13 +14,12 @@ const CheckPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  // console.log(location);
 
   useEffect(() => {
     if (!location?.state?.data?.name) {
       navigate("/checkEmail");
     }
-  });
+  }, [location, navigate]);
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -58,10 +57,7 @@ const CheckPassword = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
       });
-
-      // console.log("Token Data : ", response);
 
       if (response.data.success) {
         dispatch(setToken(response?.data?.token));
@@ -80,39 +76,36 @@ const CheckPassword = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
       });
     }
   };
 
   return (
-    <div className="min-h-screen bg-myColor1 flex justify-center items-center">
-      <div className="text-white border border-myColor2 max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col m-7">
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+      <div className="text-gray-800 border border-gray-300 max-w-sm p-6 w-full rounded-lg overflow-hidden flex justify-center items-center flex-col m-7 bg-white shadow-lg">
         <p className="text-2xl py-4">
           <span className="text-xl">
             <b>Welcome to</b>
           </span>{" "}
-          <span className="text-myColor3 font-bold">ChatHorizon</span>
+          <span className="text-blue-600 font-bold">ChatHorizon</span>
         </p>
-        <p className="text-xl font-extralight">Verify Password</p>
-        <div className="max-w-sm mx-aut  overflow-hidden">
-          <div className="sm:flex sm:items-center px-6 py-4 ">
+        <p className="text-xl font-extralight text-gray-600">Verify Password</p>
+        <div className="max-w-sm mx-auto overflow-hidden">
+          <div className="sm:flex sm:items-center px-6 py-4">
             {location?.state?.data?.profile_pic ? (
               <img
-                className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-14 w-14 rounded-full object-cover border-2 border-myColor2"
+                className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-14 w-14 rounded-full object-cover border-2 border-blue-500"
                 src={location?.state?.data?.profile_pic}
-                alt={
-                  <PiUserThin className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 w-16 rounded-full object-cover text-gray-400" />
-                }
+                alt="Profile"
               />
             ) : (
               <PiUserThin className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 w-16 rounded-full object-cover text-gray-400" />
             )}
-            <div className="mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left ">
-              <p className="text-s leading-tight">
+            <div className="mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left">
+              <p className="text-gray-800 leading-tight">
                 {location?.state?.data?.name}
               </p>
-              <p className="text-sm leading-tight text-myColor3 py-1">
+              <p className="text-sm leading-tight text-blue-600 py-1">
                 {location?.state?.data?.email}
               </p>
             </div>
@@ -126,14 +119,16 @@ const CheckPassword = () => {
             <tbody>
               <tr className="my-3">
                 <td className="w-1/3">
-                  <label htmlFor="password">Password :</label>
+                  <label htmlFor="password" className="text-gray-700">
+                    Password:
+                  </label>
                 </td>
                 <td className="w-2/3">
                   <input
                     name="password"
                     id="password"
                     type="password"
-                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full text-myColor1"
+                    className="border border-gray-300 rounded-md mx-2 px-2 my-2 text-base w-full text-gray-800 focus:ring-blue-500 focus:border-blue-500"
                     value={data.password}
                     onChange={handleOnchange}
                     required
@@ -146,7 +141,7 @@ const CheckPassword = () => {
                 <td colSpan="2" className="text-center">
                   <button
                     type="submit"
-                    className="border w-full bg-myColor2 hover:bg-myColor2  border-myColor2 rounded-md my-4 mx-2 px-4 py-1 text-base text-white   "
+                    className="border w-full bg-blue-600 hover:bg-blue-700 border-blue-600 rounded-md my-4 mx-2 px-4 py-1 text-base text-white"
                   >
                     Login
                   </button>
@@ -155,11 +150,11 @@ const CheckPassword = () => {
             </tbody>
           </table>
         </form>
-        <p>
-          Forgot Password ?{" "}
+        <p className="text-gray-600">
+          Forgot Password?{" "}
           <Link
             to={"/forgot-password"}
-            className="hover:text-myColor2 font-semibold"
+            className="hover:text-blue-600 font-semibold"
           >
             Click here
           </Link>
@@ -168,4 +163,5 @@ const CheckPassword = () => {
     </div>
   );
 };
+
 export default CheckPassword;

@@ -15,20 +15,16 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
-  // console.log("User :", user?._id);
-  // console.log("Redux user : ", user);
-
   const [editUserSection, setEditUserSection] = useState(false);
   const [allUser, setAllUser] = useState([]);
   const [openSearchUser, setOpenSearchUser] = useState(false);
 
   const logoutUser = async () => {
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/logout`;
-    const response = await axios({
+    const response = await axios({  
       url: URL,
       withCredentials: true,
     });
-    console.log(response.data.success);
     try {
       if (response.data.success) {
         navigate("/checkEmail");
@@ -41,7 +37,6 @@ const Sidebar = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "",
       });
     } catch (error) {
       toast.error("Something went wrong" || error, {
@@ -52,7 +47,6 @@ const Sidebar = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "",
       });
     }
   };
@@ -61,12 +55,12 @@ const Sidebar = () => {
   const isOnline = onlineUser.includes(user?._id);
 
   return (
-    <div className="w-full h-full bg-myColor2  grid grid-cols-[48px,1fr]">
-      <div className="bg-myColor1 w-12 h-full py-3 flex flex-col justify-between text-myColor3 ">
+    <div className="w-full h-full bg-gray-100 grid grid-cols-[48px,1fr]">
+      <div className="bg-gray-300 w-12 h-full py-3 flex flex-col justify-between text-gray-800">
         <div>
           <NavLink
             className={({ isActive }) =>
-              `w-12 h-12 flex justify-center items-center cursor-pointer hover:border rounded-lg border-myColor2 ${
+              `w-12 h-12 flex justify-center items-center cursor-pointer hover:border rounded-lg border-gray-700 ${
                 isActive && "border"
               }`
             }
@@ -75,7 +69,7 @@ const Sidebar = () => {
             <BiSolidMessageSquareDetail size={25} />
           </NavLink>
           <div
-            className="w-12 h-12  flex justify-center items-center cursor-pointer hover:border rounded-lg border-myColor2 "
+            className="w-12 h-12 flex justify-center items-center cursor-pointer hover:border rounded-lg border-gray-700"
             title="Add Friends"
             onClick={() => setOpenSearchUser(true)}
           >
@@ -85,7 +79,7 @@ const Sidebar = () => {
 
         <div>
           <button
-            className="w-12 h-12  flex justify-center items-center cursor-pointer hover:border rounded-lg border-myColor2 relative"
+            className="w-12 h-12 flex justify-center items-center cursor-pointer hover:border rounded-lg border-gray-700 relative"
             title={user?.name}
             onClick={() => setEditUserSection(true)}
           >
@@ -99,10 +93,12 @@ const Sidebar = () => {
             ) : (
               <PiUserCircleThin size={45} />
             )}
-            {isOnline && <div className="bg-myColor6 p-1 absolute bottom-2 right-2 z-10 rounded-full"></div>}
+            {isOnline && (
+              <div className="bg-green-500 p-1 absolute bottom-2 right-2 z-10 rounded-full"></div>
+            )}
           </button>
           <button
-            className="w-12 h-12  flex justify-center items-center cursor-pointer hover:border rounded-lg border-myColor2 "
+            className="w-12 h-12 flex justify-center items-center cursor-pointer hover:border rounded-lg border-gray-700"
             title="Logout"
           >
             <span className="-ml-1">
@@ -114,24 +110,24 @@ const Sidebar = () => {
 
       <div className="w-full">
         <div>
-          <h1 className="nunito text-2xl h-16 p-4 flex items-center text-myColor1">
+          <h1 className="nunito text-2xl h-16 p-4 flex items-center text-gray-800">
             Messages
           </h1>
-          <div className="bg-myColor1 p-[0.5px]" />
+          <div className="bg-gray-800 p-[0.5px]" />
         </div>
-        <div className=" h-[calc(100vh-65px)]  overflow-x-hidden overflow-y-auto scrollbar">
+        <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
           {/* users Scrollbar */}
           {allUser.length === 0 && (
             <div className="mt-12 justify-center items-center ">
-              <div className="flex justify-center items-center text-myColor1">
+              <div className="flex justify-center items-center text-gray-800">
                 <div
                   onClick={() => setOpenSearchUser(true)}
-                  className="w-12 h-12  flex justify-center items-center cursor-pointer rounded-lg  hover:text-myColor3"
+                  className="w-12 h-12 flex justify-center items-center cursor-pointer rounded-lg hover:text-gray-400"
                 >
                   <PiUsersThin size={40} />
                 </div>
               </div>
-              <div className="text-myColor1 text-xl text-center">
+              <div className="text-gray-800 text-xl text-center">
                 <p>Explore users to start Conversation</p>
               </div>
             </div>

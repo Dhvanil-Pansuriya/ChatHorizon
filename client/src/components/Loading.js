@@ -1,12 +1,12 @@
-import React from "react";
+import React from "react"
 
-const Loading = () => {
+export default function Loading() {
   return (
-    <div>
-      <div role="status">
+    <div className="flex justify-center flex-col  items-center h-full">
+      <div role="status" className="relative">
         <svg
           aria-hidden="true"
-          className="w-10 h-10 text-myColor1 animate-spin dark:text-myColor3 fill-myColor2"
+          className="w-16 h-16 text-gray-200 animate-spin dark:text-gray-300 fill-blue-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +22,7 @@ const Loading = () => {
         </svg>
         <span className="sr-only">Loading...</span>
       </div>
+      <p className="mt-2 text-sm text-gray-500">Loading...</p>
     </div>
-  );
-};
-
-export default Loading;
+  )
+}

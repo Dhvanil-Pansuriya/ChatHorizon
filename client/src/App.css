@@ -20,11 +20,11 @@
 }
 
 .scrollbar::-webkit-scrollbar-track {
-  @apply bg-myColor2;
+  @apply bg-gray-500;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-myColor4 rounded-xl;
+  @apply bg-gray-300 rounded-xl;
 }
 
 .scrollbar-container {
@@ -35,11 +35,11 @@
 }
 
 .scrollbar-find-user::-webkit-scrollbar-track {
-  @apply bg-myColor5 rounded-sm;
+  @apply bg-gray-300 rounded-sm;
 }
 
 .scrollbar-find-user::-webkit-scrollbar-thumb {
-  @apply bg-myColor2 rounded-sm;
+  @apply bg-gray-500 rounded-sm;
 }
 
 
@@ -48,9 +48,9 @@
 }
 
 .scrollbar-message-user::-webkit-scrollbar-track {
-  @apply bg-myColor5 rounded-sm;
+  @apply bg-gray-300 rounded-sm;
 }
 
 .scrollbar-message-user::-webkit-scrollbar-thumb {
-  @apply bg-myColor2 rounded-sm;
+  @apply bg-gray-500 rounded-sm;
 }

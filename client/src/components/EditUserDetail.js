@@ -7,7 +7,7 @@ import { setUser } from "../redux/userSlice";
 import axios from "axios";
 import imageCompression from "browser-image-compression";
 
-const EditUserDetail = ({ onClose, user }) => {
+export default function EditUserDetail({ onClose, user }) {
   const [data, setData] = useState({
     name: user?.name || "",
     profile_pic: user?.profile_pic || "",
@@ -48,8 +48,6 @@ const EditUserDetail = ({ onClose, user }) => {
           useWebWorker: true,
         };
         const compressedFile = await imageCompression(file, options);
-        // console.log("Original : ", file.size);
-        // console.log("Compressed : ", compressedFile.size);
 
         if (compressedFile.size > 1048576) {
           toast.error(
@@ -62,7 +60,7 @@ const EditUserDetail = ({ onClose, user }) => {
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
-              theme: "dark",
+              theme: "light",
             }
           );
           return;
@@ -80,7 +78,7 @@ const EditUserDetail = ({ onClose, user }) => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "dark",
+          theme: "light",
         });
       }
     }
@@ -104,7 +102,7 @@ const EditUserDetail = ({ onClose, user }) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: "light",
       });
 
       if (response.data.success) {
@@ -121,90 +119,86 @@ const EditUserDetail = ({ onClose, user }) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: "light",
       });
     }
   };
 
   return (
-    <>
-      <div className="fixed inset-0 bg-myColor1 bg-opacity-70 flex justify-center items-center z-10">
-        <div className="p-8 rounded-lg shadow-lg w-full max-w-lg border bg-myColor1 border-myColor2 text-myColor3">
-          <h2 className="text-2xl font-bold mb-6 text-center text-myColor2">
-            Profile Details
-          </h2>
-          <p className="text-sm mb-8 text-center text-myColor3 ">
-            Edit user details
-          </p>
-          <form onSubmit={handleSubmit}>
-            <div className="space-y-6 ">
-              <div className="flex justify-between items-center">
-                <label
-                  htmlFor="profile_pic"
-                  className="font-medium text-myColor3"
-                >
-                  Profile:
-                </label>
-                <button
-                  onClick={handleOpenUploadPhoto}
-                  className="text-center  w-72 flex items-center "
-                >
-                  {data?.profile_pic ? (
-                    <img
-                      className="h-20 w-20 rounded-full object-cover mx-auto border-2 border-myColor2  hover:cursor-pointer"
-                      src={data?.profile_pic}
-                      alt="Profile"
-                    />
-                  ) : (
-                    <PiUserThin className="h-20 w-20 rounded-full text-myColor4 mx-auto hover:cursor-pointer" />
-                  )}
-                </button>
-                <input
-                  name="profile_pic"
-                  id="profile_pic"
-                  type="file"
-                  className="hidden"
-                  onChange={handleUploadPhoto}
-                  ref={uploadPhotoRef}
-                />
-              </div>
-
-              <div className="flex justify-between items-center">
-                <label htmlFor="name" className="font-medium text-myColor3">
-                  Name:
-                </label>
-                <input
-                  name="name"
-                  id="name"
-                  type="text"
-                  className="rounded-md w-2/3 px-4 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-myColor2 bg-myColor2"
-                  value={data.name}
-                  onChange={handleOnChange}
-                  required
-                />
-              </div>
-
-              <div className="flex justify-center">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="w-full text-myColor3 bg-myColor2 hover:bg-myColor2-dark font-medium rounded-md py-2 transition duration-200 mx-2"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="w-full text-myColor3 bg-myColor2 hover:bg-myColor2-dark font-medium rounded-md py-2 transition duration-200 mx-2"
-                >
-                  Save
-                </button>
-              </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
+      <div className="p-8 rounded-xl shadow-lg w-full max-w-lg bg-white">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          Profile Details
+        </h2>
+        <p className="text-sm mb-8 text-center text-gray-600">
+          Edit user details
+        </p>
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <label
+                htmlFor="profile_pic"
+                className="font-medium text-gray-700"
+              >
+                Profile:
+              </label>
+              <button
+                onClick={handleOpenUploadPhoto}
+                className="text-center w-72 flex items-center"
+              >
+                {data?.profile_pic ? (
+                  <img
+                    className="h-20 w-20 rounded-full object-cover mx-auto border-2 border-gray-300 hover:border-blue-500 transition-colors duration-200"
+                    src={data?.profile_pic}
+                    alt="Profile"
+                  />
+                ) : (
+                  <PiUserThin className="h-20 w-20 rounded-full text-gray-400 mx-auto hover:text-blue-500 transition-colors duration-200" />
+                )}
+              </button>
+              <input
+                name="profile_pic"
+                id="profile_pic"
+                type="file"
+                className="hidden"
+                onChange={handleUploadPhoto}
+                ref={uploadPhotoRef}
+              />
             </div>
-          </form>
-        </div>
-      </div>
-    </>
-  );
-};
 
-export default EditUserDetail;
+            <div className="flex justify-between items-center">
+              <label htmlFor="name" className="font-medium text-gray-700">
+                Name:
+              </label>
+              <input
+                name="name"
+                id="name"
+                type="text"
+                className="rounded-lg w-2/3 px-4 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-800"
+                value={data.name}
+                onChange={handleOnChange}
+                required
+              />
+            </div>
+
+            <div className="flex justify-center space-x-4">
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full text-gray-700 bg-gray-200 hover:bg-gray-300 font-medium rounded-lg py-2 transition duration-200"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg py-2 transition duration-200"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

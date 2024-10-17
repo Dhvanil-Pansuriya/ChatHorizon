@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import imageCompression from "browser-image-compression";
 
+
 const Register = () => {
   const [data, setData] = useState({
     name: "",
@@ -17,7 +18,7 @@ const Register = () => {
   const [uploadPhoto, setUploadPhoto] = useState(null);
   const [fileSize, setFileSize] = useState(null);
   const navigate = useNavigate();
-  
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({
@@ -39,8 +40,6 @@ const Register = () => {
       const fileSizeInKB = (compressedFile.size / 1024).toFixed(2);
       const fileSizeInMB = (fileSizeInKB / 1000).toFixed(2);
 
-      // console.log(fileSizeInKB, fileSizeInMB);
-
       if (fileSizeInKB > 1000) {
         toast.error(
           `File size exceeds 1 MB, your file size : ${fileSizeInMB} MB`,
@@ -52,7 +51,6 @@ const Register = () => {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "",
           }
         );
         return;
@@ -74,7 +72,6 @@ const Register = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "",
       });
       console.log(error?.response?.data?.message);
     }
@@ -99,7 +96,6 @@ const Register = () => {
 
     try {
       const response = await axios.post(URL, data);
-      // console.log("Response : ", response);
       toast.success(response?.data?.message, {
         position: "top-center",
         autoClose: 2000,
@@ -108,7 +104,6 @@ const Register = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
       });
 
       if (response?.data?.success) {
@@ -120,7 +115,6 @@ const Register = () => {
         });
         navigate("/checkEmail");
       }
-
     } catch (error) {
       toast.error(error?.response?.data?.message, {
         position: "top-center",
@@ -130,27 +124,22 @@ const Register = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
       });
       console.log("Error : ", error);
     }
-
-    // console.log(data);
   };
 
   return (
-
-    <>
-    <div className="min-h-screen bg-myColor1 flex justify-center items-center flex-col">
-    <p className="josefin-sans text-5xl m-10 text-myColor3 flex justify-center  ">
+    <div className="min-h-screen bg-gray-200 flex justify-center items-center flex-col">
+      <p className="josefin-sans text-5xl m-10 text-blue-600 flex justify-center">
         ChatHorizon
       </p>
-      <div className="text-white border border-myColor2 max-w-sm p-6 w-full rounded-2xl overflow-hidden flex justify-center items-center flex-col">
+      <div className="text-gray-800 bg-white border border-gray-300 shadow-lg max-w-sm p-6 w-full rounded-lg overflow-hidden flex justify-center items-center flex-col">
         <p className="text-2xl py-4">
           <span className="text-xl">
             <b>Welcome to</b>
           </span>{" "}
-          <span className="text-myColor3 font-bold">ChatHorizon</span>
+          <span className="text-blue-600 font-bold">ChatHorizon</span>
         </p>
         <p className="text-xl font-extralight">Register</p>
         <form
@@ -168,7 +157,7 @@ const Register = () => {
                     name="name"
                     id="name"
                     type="text"
-                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full text-myColor1"
+                    className="border border-gray-300 rounded-md mx-2 px-2 my-2 text-base w-full text-gray-700"
                     value={data.name}
                     onChange={handleOnChange}
                     required
@@ -185,7 +174,7 @@ const Register = () => {
                     name="email"
                     id="email"
                     type="email"
-                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full text-myColor1"
+                    className="border border-gray-300 rounded-md mx-2 px-2 my-2 text-base w-full text-gray-700"
                     value={data.email}
                     onChange={handleOnChange}
                     required
@@ -201,7 +190,7 @@ const Register = () => {
                     name="password"
                     id="password"
                     type="password"
-                    className="border border-myColor2 rounded-md mx-2 px-2 my-2 text-base w-full text-myColor1"
+                    className="border border-gray-300 rounded-md mx-2 px-2 my-2 text-base w-full text-gray-700"
                     value={data.password}
                     onChange={handleOnChange}
                     required
@@ -214,20 +203,20 @@ const Register = () => {
                 </td>
                 <td className="w-2/3">
                   <label htmlFor="profile_pic">
-                    <div className="rounded-md h-10 mx-2 text-base w-full my-2 outline outline-1 outline-myColor2 flex justify-center items-center cursor-pointer">
+                    <div className="rounded-md h-10 mx-2 text-base w-full my-2 outline outline-1 outline-gray-300 flex justify-center items-center cursor-pointer">
                       <p className="text-xs px-2">
                         {uploadPhoto?.name ? uploadPhoto.name : "Upload here"}
                       </p>
                       {uploadPhoto?.name && (
                         <button
                           onClick={handleRemoveUploadPhoto}
-                          className="px-2 hover:text-myColor2"
+                          className="px-2 hover:text-red-600"
                         >
                           <IoCloseCircle />
                         </button>
                       )}
                     </div>
-                    <span className="text-xs px-2 text-myColor2">
+                    <span className="text-xs px-2 text-gray-500">
                       * not required
                     </span>
                   </label>
@@ -235,7 +224,7 @@ const Register = () => {
                     name="profile_pic"
                     id="profile_pic"
                     type="file"
-                    className="rounded-md mx-2 text-base w-full my-2 outline outline-1 outline-myColor2 hidden"
+                    className="rounded-md mx-2 text-base w-full my-2 outline outline-1 outline-gray-300 hidden"
                     onChange={handleUploadPhoto}
                   />
                 </td>
@@ -244,7 +233,7 @@ const Register = () => {
                 <td colSpan="2" className="text-center">
                   <button
                     type="submit"
-                    className="border w-full bg-myColor2 hover:bg-myColor2 border-myColor2 rounded-md my-4 mx-2 px-4 py-1 text-base text-white"
+                    className="border w-full bg-blue-600 hover:bg-blue-700 border-blue-600 rounded-md my-4 mx-2 px-4 py-1 text-base text-white"
                   >
                     Register
                   </button>
@@ -257,14 +246,13 @@ const Register = () => {
           Already have Account?{" "}
           <Link
             to={"/checkEmail"}
-            className="hover:text-myColor2 font-semibold"
+            className="hover:text-blue-600 font-semibold"
           >
             Sign in
           </Link>
         </p>
       </div>
     </div>
-    </>
   );
 };
 
