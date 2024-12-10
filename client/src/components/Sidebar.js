@@ -4,15 +4,18 @@ import { PiUserPlusThin } from "react-icons/pi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import { PiUserCircleThin, PiUsersThin } from "react-icons/pi";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"; // Import useDispatch
 import { useState } from "react";
 import EditUserDetail from "./EditUserDetail";
 import SearchUser from "./SearchUser";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Avatar from "./Avatar";
+import { logout } from "../redux/userSlice"; // Import the logout action
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Initialize dispatch
   const user = useSelector((state) => state.user);
 
   const [editUserSection, setEditUserSection] = useState(false);
@@ -21,23 +24,31 @@ const Sidebar = () => {
 
   const logoutUser = async () => {
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/logout`;
-    const response = await axios({  
-      url: URL,
-      withCredentials: true,
-    });
     try {
-      if (response.data.success) {
-        navigate("/checkEmail");
-      }
-      toast.success("Logout successfully", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+      const response = await axios({
+        url: URL,
+        withCredentials: true,
       });
+
+      if (response.data.success) {
+        // Dispatch logout action to clear Redux state
+        dispatch(logout());
+
+        // Remove Token from localstorage
+        localStorage.removeItem("token");
+        // Navigate to the email verification page
+        navigate("/checkEmail");
+
+        toast.success("Logout successfully", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (error) {
       toast.error("Something went wrong" || error, {
         position: "top-center",
@@ -50,6 +61,29 @@ const Sidebar = () => {
       });
     }
   };
+
+  let avatarName = "";
+  if (user?.name) {
+    const splitName = user?.name.trim().split(" "); // Ensure we trim whitespace
+    avatarName =
+      splitName.length > 1
+        ? splitName[0][0] + splitName[1][0] // Get initials from first and last name
+        : splitName[0][0]; // Get initial from first name only
+  }
+
+  const bgColor = [
+    "bg-slate-200",
+    "bg-teal-200",
+    "bg-red-200",
+    "bg-green-200",
+    "bg-yellow-200",
+    "bg-gray-200",
+    "bg-cyan-200",
+    "bg-sky-200",
+    "bg-blue-200",
+  ];
+
+  const randomNumber = Math.floor(Math.random() * bgColor.length);
 
   const onlineUser = useSelector((state) => state?.user?._id);
   const isOnline = onlineUser.includes(user?._id);
@@ -84,17 +118,23 @@ const Sidebar = () => {
             onClick={() => setEditUserSection(true)}
           >
             {user?.profile_pic ? (
-              <img
-                className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-9 w-9 rounded-full object-cover border-2"
-                src={user?.profile_pic}
-                size={30}
-                alt="Profile"
+              <Avatar
+                width={40}
+                height={40}
+                name={user?.name}
+                userId={user?._id}
+                imageUrl={user?.profile_pic}
               />
             ) : (
-              <PiUserCircleThin size={45} />
-            )}
-            {isOnline && (
-              <div className="bg-green-500 p-1 absolute bottom-2 right-2 z-10 rounded-full"></div>
+              <div
+                className={`flex items-center rounded-full justify-center text-xl font-semibold  ${bgColor[randomNumber]} text-gray-800`}
+                style={{ width: `40px`, height: `40px` }}
+              >
+                {avatarName.toUpperCase()}{" "}
+                {isOnline && (
+                  <div className="bg-green-500 p-1 absolute bottom-1.5 right-2 z-10 rounded-full"></div>
+                )}
+              </div>
             )}
           </button>
           <button

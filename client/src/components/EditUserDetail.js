@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../redux/userSlice";
 import axios from "axios";
 import imageCompression from "browser-image-compression";
+import Avatar from "./Avatar";
 
 export default function EditUserDetail({ onClose, user }) {
   const [data, setData] = useState({
@@ -124,6 +125,30 @@ export default function EditUserDetail({ onClose, user }) {
     }
   };
 
+  let avatarName = "";
+  if (user?.name) {
+    const splitName = user?.name.trim().split(" "); // Ensure we trim whitespace
+    avatarName =
+      splitName.length > 1
+        ? splitName[0][0] + splitName[1][0] // Get initials from first and last name
+        : splitName[0][0]; // Get initial from first name only
+  }
+
+  const bgColor = [
+    'bg-slate-200',
+    'bg-teal-200',
+    'bg-red-200',
+    'bg-green-200',
+    'bg-yellow-200',
+    'bg-gray-200',
+    "bg-cyan-200",
+    "bg-sky-200",
+    "bg-blue-200"
+  ];
+
+  const randomNumber = Math.floor(Math.random() * bgColor.length);
+
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
       <div className="p-8 rounded-xl shadow-lg w-full max-w-lg bg-white">
@@ -147,13 +172,21 @@ export default function EditUserDetail({ onClose, user }) {
                 className="text-center w-72 flex items-center"
               >
                 {data?.profile_pic ? (
-                  <img
-                    className="h-20 w-20 rounded-full object-cover mx-auto border-2 border-gray-300 hover:border-blue-500 transition-colors duration-200"
-                    src={data?.profile_pic}
-                    alt="Profile"
+                  <Avatar
+                    width={70}
+                    height={70}
+                    name={data?.name}
+                    userId={data?._id}
+                    imageUrl={data?.profile_pic}
                   />
                 ) : (
-                  <PiUserThin className="h-20 w-20 rounded-full text-gray-400 mx-auto hover:text-blue-500 transition-colors duration-200" />
+                  <div
+                    className={`flex items-center rounded-full justify-center text-3xl font-semibold  ${bgColor[randomNumber]} text-gray-800`}
+                    style={{ width: `70px`, height: `70px` }}
+                  >
+                    {avatarName.toUpperCase()}{" "}
+                    
+                  </div>
                 )}
               </button>
               <input

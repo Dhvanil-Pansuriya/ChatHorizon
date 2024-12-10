@@ -23,6 +23,7 @@ export default function Loading() {
         <span className="sr-only">Loading...</span>
       </div>
       <p className="mt-2 text-sm text-gray-500">Loading...</p>
+      <p className="mt-2 text-sm text-gray-400">Wait it will take 30 Second to 1 Minute</p>
     </div>
   )
 }

@@ -109,7 +109,7 @@ export default function SearchUser({ onClose }) {
             {searchUser.length !== 0 &&
               !loading &&
               searchUser.map((user) => (
-                <UserCard key={user._id} user={user} onClose={onClose} />
+                <UserCard key={user._id} user={user} name={user?.name} onClose={onClose} />
               ))}
           </div>
         </div>

@@ -12,12 +12,15 @@ dotenv.config({
 
 // const app = express();
 
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: [process.env.FRONTEND_URL, "https://admin.socket.io"],
     credentials: true,
   })
 );
+
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -38,3 +41,5 @@ connectDB().then(() => {
     console.log("Server is running successfully at : http://localhost:" + PORT);
   });
 });
+
+

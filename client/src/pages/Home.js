@@ -69,8 +69,10 @@ export default function Home() {
     dispatch(setSocketConnection(socketConnection));
 
     return () => {
+      socketConnection.off('onlineUser');
       socketConnection.disconnect();
     };
+    
   }, []);
 
   const basePath = location.pathname === "/";

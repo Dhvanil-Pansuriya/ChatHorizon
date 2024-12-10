@@ -4,6 +4,7 @@ import http from "http";
 import dotenv from "dotenv";
 import getUserDetailFromToken from "../helper/getUserDetailFromToken.js";
 import { User } from "../models/user.model.js";
+import { instrument } from "@socket.io/admin-ui";
 
 const app = express();
 
@@ -15,7 +16,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL,
+    origin: [process.env.FRONTEND_URL, "https://admin.socket.io"],
     credentials: true,
   },
 });
@@ -28,12 +29,12 @@ io.on("connection", async (socket) => {
   const token = socket.handshake.auth.token;
 
   const user = await getUserDetailFromToken(token);
-  // console.log("User : ", user);
 
   socket.join(user?._id);
   onlineUser.add(user?._id?.toString());
 
   io.emit("onlineUser", Array.from(onlineUser));
+  // console.log("User ID : ", user?._id.toString());
 
   socket.on("message-page", async (userId) => {
     const userDetail = await User.findById(userId).select("-password");
@@ -49,11 +50,19 @@ io.on("connection", async (socket) => {
     socket.emit("message-user", payload);
   });
 
+  /** NewMessage */
+
+  socket.on("NewMessage", (data) => {
+    console.log("New Message : ", data);
+  });
+
   /**Socket Disconnection */
   socket.on("disconnect", () => {
     onlineUser.delete(user?._id);
     console.log("Disconnected User : ", socket.id);
   });
 });
+
+instrument(io, { auth: false });
 
 export { app, server };

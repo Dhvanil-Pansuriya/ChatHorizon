@@ -6,7 +6,7 @@ const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_
 const uploadFile = async (file) => {
 
   try {
-    toast.warning("File uploading is in process..........( after processing press Submit )", {
+    toast.warning("File uploading is in process.", {
       position: "top-center",
       autoClose: 10000,
       hideProgressBar: false,

@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PiUserCircle } from "react-icons/pi";
 import { useSelector } from "react-redux";
 
 const Avatar = ({ userId, name, imageUrl, width, height }) => {
-  const onlineUser = useSelector((state) => state?.user?.onlineUser || []);
+  const onlineUser = useSelector((state) => state?.user?.onlineUser);
+  const [isOnline, setIsOnline] = useState(false);
+
+  useEffect(() => {
+    setIsOnline(onlineUser.includes(userId));
+  }, [onlineUser, userId]);
 
   let avatarName = "";
-
   if (name) {
-    const splitName = name?.split(" ");
-
-    if (splitName.length > 1) {
-      avatarName = splitName[0][0] + splitName[1][0];
-    } else {
-      avatarName = splitName[0][0];
-    }
+    const splitName = name.trim().split(" ");
+    avatarName =
+      splitName.length > 1
+        ? splitName[0][0] + splitName[1][0]
+        : splitName[0][0];
   }
 
   const bgColor = [
@@ -29,35 +31,50 @@ const Avatar = ({ userId, name, imageUrl, width, height }) => {
     "bg-blue-200",
   ];
 
-  const randomNumber = Math.floor(Math.random() * 9);
+  const randomNumber = Math.floor(Math.random() * bgColor.length);
 
-  const isOnline = onlineUser.includes(userId);
+  // if (isOnline) {
+  //   console.log(name, " : ", isOnline);
+  // }
+  // console.log(name, " :-> ", isOnline);
+
   return (
-    <div
-      className={`text-slate-800  rounded-full font-bold relative`}
-      style={{ width: width + "px", height: height + "px" }}
-    >
-      {imageUrl ? (
-        <img
-          src={imageUrl}
-          width={width}
-          height={height}
-          alt={name}
-          className="overflow-hidden rounded-full"
-        />
-      ) : name ? (
-        <div
-          style={{ width: width + "px", height: height + "px" }}
-          className={`overflow-hidden rounded-full flex justify-center items-center text-lg ${bgColor[randomNumber]}`}
-        >
-          {avatarName}
-        </div>
-      ) : (
-        <PiUserCircle size={width} />
-      )}
+    <div className="relative flex items-center justify-center">
+      <div
+        className={`relative flex items-center justify-center rounded-full overflow-hidden border-2 transition-all duration-300
+                      ${
+                        isOnline
+                          ? "border-green-600 shadow-lg"
+                          : "border-transparent"
+                      }
+                      hover:shadow-md`}
+        style={{ width: `${width}px`, height: `${height}px` }}
+      >
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            width={width}
+            height={height}
+            alt={name}
+            className="h-full w-full rounded-full object-cover transition-transform duration-300 hover:scale-105"
+          />
+        ) : avatarName ? (
+          <div
+            className={`flex items-center justify-center text-lg font-bold ${bgColor[randomNumber]} text-gray-800`}
+            style={{ width: `${width}px`, height: `${height}px` }}
+          >
+            {avatarName.toUpperCase()}
+          </div>
+        ) : (
+          <PiUserCircle size={width / 1.5} className="text-slate-800" />
+        )}
+      </div>
 
       {isOnline && (
-        <div className="bg-green-600 p-1 absolute bottom-2 -right-1 z-10 rounded-full"></div>
+        <div
+          className="bg-green-500 w-3 h-3 absolute rounded-full"
+          style={{ bottom: 1, right: 1, border: "2px solid white" }}
+        ></div>
       )}
     </div>
   );
